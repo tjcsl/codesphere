@@ -12,7 +12,7 @@ def about():
 
 def login():
 	if session.get('user_id', None) is None:
-		return ghobject.authorize(scope='user,repo,notifications')
+		return ghobject.authorize(scope='user')
 	else:
 		return redirect('/')
 

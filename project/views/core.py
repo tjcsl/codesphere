@@ -1,4 +1,4 @@
-from flask import render_template, flash, session
+from flask import render_template, flash, session, request
 from project.utils import ghobject
 from project.models import User
 from flask.ext import github

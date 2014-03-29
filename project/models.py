@@ -30,8 +30,8 @@ class Bug(Base):
     id = Column(Integer, primary_key=True)
     title = Column(String(512), nullable=False)
     description = Column(String(10000), nullable=False)
-    priority = Column(Enum(['LOW','MEDIUM','HIGH','CRITICAL'], name="priority_enum"), nullable = False)
-    bug_type = Column(Enum(['BUG','ENHANCEMENT','OTHER'], name="bug_type_enum"), nullable = False)
+    priority = Column(Enum('LOW','MEDIUM','HIGH','CRITICAL', name="priority_enum"), nullable = False)
+    bug_type = Column(Enum('BUG','ENHANCEMENT','OTHER', name="bug_type_enum"), nullable = False)
     bug_id = Column(Integer, nullable=False)
     project = Column(ForeignKey('projects.id'), nullable=False)
 

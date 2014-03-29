@@ -1,5 +1,5 @@
 from project import app
-from project.views import core, bugs
+from project.views import core, bugs, links
 
 def add_url_routes(routes_tuple):
     for route, view_function in routes_tuple:
@@ -8,5 +8,6 @@ def add_url_routes(routes_tuple):
 add_url_routes((
     ('/', core.index),
     ('/about/', core.about),
-    ('/<owner>/<project>/bugs/', bugs.browse)
+    ('/<owner>/<project>/bugs/', bugs.browse),
+    ('/link/<id>', links.resolve)
 ))

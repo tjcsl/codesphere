@@ -9,6 +9,14 @@
         <th>Priority</th>
         <th>Type</th>
       </tr>
+      {% for bug in bugs %}
+      <tr>
+        <td>{{ bug.id }}</td>
+        <td>{{ bug.title }}</td>
+        <td>{{ bug.priority }}</td>
+        <td>{{ bug.type }}</td>
+      </tr>
+      {% endfor %}
     </table>
   </div>
 </div>

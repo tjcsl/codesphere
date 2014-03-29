@@ -1,4 +1,4 @@
-from sqlalchemy import Column, Integer, String
+from sqlalchemy import Column, Integer, String, Enum
 from project.database import Base
 
 class ShortenedURL(Base):
@@ -21,6 +21,7 @@ class Bug(Base):
     description = Column(String(10000))
     priority = Column(Enum(['LOW','MEDIUM','HIGH','CRITICAL'], name="priority_enum"))
     bug_type = Column(Enum(['BUG','ENHANCEMENT','OTHER'], name="bug_type_enum"))
+    bug_id = Column(Integer, 
 
     def __init__(self, title, description, priority, bug_type):
         self.title = title
@@ -34,7 +35,7 @@ class Bug(Base):
 class Blocker(Base):
     __tablename__ = 'bug_dependancies'
     id = Column(Integer, primary_key=True)
-    blocker = Column(Intenger)
+    blocker = Column(Integer)
     blockee = Column(Integer)
 
     def __init__(self, blocker, blockee):

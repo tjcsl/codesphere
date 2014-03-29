@@ -62,7 +62,9 @@ class User(Base):
     id = Column(Integer, primary_key=True)
     email = Column(String(256), nullable=False)
     username = Column(String(256), nullable=False)
+    github_access_token = Column(String(256), nullable=False)
 
-    def __init__(self, email, username):
+    def __init__(self, email, username, github_access_token):
         self.email = email
         self.username = username
+        self.github_access_token = github_access_token

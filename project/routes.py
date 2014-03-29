@@ -10,4 +10,8 @@ add_url_routes((
     ('/about/', core.about),
     ('/<owner>/<project>/bugs/', bugs.browse),
     ('/link/<id>', links.resolve)
+    ('/login', core.login),
+    ('/ghcallback/', core.ghcallback),
+    ('/logout', core.logout),
+    ('/test', core.temp_test)
 ))

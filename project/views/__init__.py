@@ -1,3 +1,3 @@
 from project.views import (
-        core
+        bugs, core
 )

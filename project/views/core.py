@@ -26,7 +26,7 @@ def ghcallback(oauth_token):
 	user = User.query.filter_by(github_access_token=oauth_token).first()
 	if user is None:
 		udata = json.loads(ghobject.get('user'))
-		user = User(email=udata['email', username=udata['login'], github_access_token=github_access_token)
+		user = User(email=udata['email'], username=udata['login'], github_access_token=github_access_token)
 		user.save()
 
 	user.github_access_token = oauth_token

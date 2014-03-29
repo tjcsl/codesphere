@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% set navbar = [
+    (url_for('index'), 'home', 'Home', True)
+] -%}
+
+{% set this_page_id = this_page_id | default('home') %}
+
+{% block head %}
+    <style type="text/css">
+        body { padding-top: 60px; }
+    </style>
+{% endblock %}
+{% block body %}
+    <div class="container">
+        <div class="navbar navbar-inverse navbar-fixed-top">
+            <div class="container">
+                <a class="navbar-brand" href="/">CodeSphere</a>
+                <ul class="nav navbar-nav">
+                    {% for path, page_id, display_text, display_condition in navbar %}
+                        {% if display_condition %}
+                            <li{% if page_id == this_page_id %} class="active"{% endif %}>
+                                <a href="{{ path }}">{{ display_text }}</a>
+                            </li>
+                        {% endif %}
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+        <div class="container">
+            {% block content %}
+            {% endblock %}
+        </div>
+    </div>
+{% endblock %}
+

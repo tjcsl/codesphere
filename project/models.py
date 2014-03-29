@@ -53,8 +53,8 @@ class Blocker(Base):
     blockee = Column(Integer, nullable=False)
 
     def __init__(self, blocker, blockee):
-        this.blocker = blocker
-        this.blockee = blockee
+        self.blocker = blocker
+        self.blockee = blockee
         return '<Blocker %d is blocked by %d>' % (blocker, blockee)
 
 class User(Base):

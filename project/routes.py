@@ -7,5 +7,5 @@ def add_url_routes(routes_tuple):
 
 add_url_routes((
     ('/', core.index),
-    ('/bugs', bugs.index)
+    ('/bugs/', bugs.index)
 ))

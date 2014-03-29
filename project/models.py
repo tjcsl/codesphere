@@ -33,7 +33,7 @@ class Bug(Base):
     priority = Column(Enum('LOW','MEDIUM','HIGH','CRITICAL', name="priority_enum"), nullable = False)
     bug_type = Column(Enum('BUG','ENHANCEMENT','OTHER', name="bug_type_enum"), nullable = False)
     bug_id = Column(Integer, nullable=False)
-    project = Column(ForeignKey('projects.id'), nullable=False)
+    project = Column(Integer, ForeignKey('projects.id'), nullable=False)
 
     __table_args__ = (UniqueConstraint('bug_id', 'project'),)
 
@@ -61,6 +61,8 @@ class User(Base):
     __tablename__ = 'users'
     id = Column(Integer, primary_key=True)
     email = Column(String(256), nullable=False)
+    username = Column(String(256), nullable=False)
 
-    def __init__(self, email):
+    def __init__(self, email, username):
         self.email = email
+        self.username = username

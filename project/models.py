@@ -1,4 +1,4 @@
-from sqlalchemy import Column, Integer, String, Enum
+from sqlalchemy import Column, Integer, String, Enum, ForeignKey
 from sqlalchemy.schema import UniqueConstraint
 from project.database import Base
 
@@ -21,6 +21,10 @@ class Project(Base):
     name = Column(String(512), nullable=False)
     owner = Column(ForeignKey('users.id'), nullable=False)
 
+    def __init__(self, name, owner):
+        self.name = name
+        self.owner = owner
+
 class Bug(Base):
     __tablename__ = 'bugs'
     id = Column(Integer, primary_key=True)
@@ -31,7 +35,7 @@ class Bug(Base):
     bug_id = Column(Integer, nullable=False)
     project = Column(ForeignKey('projects.id'), nullable=False)
 
-    __table_args__ = (UniqueConstraint('bug_id', 'project'))
+    __table_args__ = (UniqueConstraint('bug_id', 'project'),)
 
     def __init__(self, title, description, priority, bug_type):
         self.title = title

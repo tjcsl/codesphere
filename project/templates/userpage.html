@@ -6,9 +6,9 @@
     <div class="col-md-6">
         <div class="panel panel-primary">
             <div class="panel-heading">
-                My Imported Repos
+                {{ user.username }}'s Imported Repos
             </div>
-            <div class="panel-content">
+            <div class="panel-body">
                 <ul class="list-group">
                     {% if len(irepos) == 0 %}
                     <p>No imported repos!</p>
@@ -31,20 +31,24 @@
             <div class="panel-heading">
                 Unimported Repos
             </div>
-            <div class="panel-content">
+            {% if session.username == user.username %}
+            <div class="panel-body">
                 {% if len(urepos) == 0 %}
                     <p>No unimported repos!</p>
                 {% else %}
                     <ul class="list-group">
                         {% for i in urepos %}
                             <li class="list-group-item">
-                                <a href="//github.com/{{ user }}/{{ i }}">{{ i }}</a>
-                                <a class="pull-right" href="/u/{{ user }}/projects/{{ i }}/import">Import</a>
+                                <a href="//github.com/{{ user.username }}/{{ i }}">{{ i }}</a>
+                                    <a class="pull-right" href="/u/{{ user.username }}/projects/{{ i }}/import">Import</a>
                             </li>
                         {% endfor %}
                     </ul>
                 {% endif %}
             </div>
+            {% else %}
+            <div class="panel-body">You can't import repos for this user!</div>
+            {% endif %}
         </div>
     </div>
 </div>

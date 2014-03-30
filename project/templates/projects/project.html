@@ -1,0 +1,32 @@
+{% extends 'navbar.html' %}
+
+{% block content %}
+<div id="commithistory" class="col-md-6">
+	<div class="panel panel-primary">
+		<div class="panel-heading">Last 5 Commits</div>
+		<div class="panel-body">
+			{% for i in commits %}
+			<div class="panel panel-default">
+				<div class="panel-heading"><a href="{{ 'https://github.com/%s/%s/commit/%s' % (session['username'], reponame, i[0]) }}"><i>{{ i[0] }}</i></a></div>
+				<div class="panel-body">
+					<p><b>{{ i[1] }}</b> at {{ i[2] }}:</p>
+					<p>{{ i[3] }}</p>
+				</div>
+			</div>
+			{% endfor %}
+		</div>
+	</div>
+</div>
+<div id="links" class="col-md-6">
+	<div class="panel panel-primary">
+		<div class="panel-heading">Useful Project Links</div>
+		<div class="panel-body">
+			<ul>
+				<li><a href="bugs/">View Bugs</a></li>
+				<li><a href="chat/">Enter Chat</a></li>
+				<li><a href="whiteboard/view/">View Whiteboard</a></li>
+			</ul>
+		</div>
+	</div>
+</div>
+{% endblock %}

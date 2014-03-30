@@ -18,7 +18,7 @@ from project import socketio
 @socketio.on('chat', namespace='/sock')
 def chat_message(message):
     logging.debug("Got message: %s" % message)
-    m = {'user':session['user_id'], 'message': message['message']}
+    m = {'message': message['message']}
     emit('chat', m, broadcast=True)
 
 

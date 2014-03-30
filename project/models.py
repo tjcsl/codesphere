@@ -65,7 +65,7 @@ class User(Base):
     username = Column(String(256), nullable=False)
     github_access_token = Column(String(256), nullable=False)
 
-    def __init__(self, email=None, username, github_access_token):
+    def __init__(self, username, github_access_token, email=None):
         if email:
             self.email = email
         self.username = username

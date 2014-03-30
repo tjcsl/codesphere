@@ -33,12 +33,11 @@ def chat_message(message):
     db_session.add(message)
     db_session.commit()
 
-def process_code(m,room):
+def process_code(m,room, sendto=True):
     file_regex = re.compile(r'(?:of|in) +([\w\d]*\.[\w\d]+)')
     messages = db_session.query(Message).order_by(desc(Message.id)).limit(30).all()
     messages = [message.content for message in messages]
     f = None
-    print(messages)
     for mess in messages[::-1]:
         match = file_regex.findall(mess)
         if match:
@@ -83,7 +82,10 @@ def process_code(m,room):
         linerange = [int(line)-1]
     mag = len(str(max(linerange)))
     for l in linerange:
-        emit('code',{'number':(' '*(mag-len(str(l+1))))+str(l+1),'code':lines[l]},room=room)
+        if sendto:
+            emit('code',{'number':(' '*(mag-len(str(l+1))))+str(l+1),'code':lines[l]},room=room)
+        else:
+            emit('code',{'number':(' '*(mag-len(str(l+1))))+str(l+1),'code':lines[l]})
 
 
 
@@ -97,9 +99,9 @@ def on_join(data):
     emit('join', {'user':username})
     emit('backlog','start')
     for m in messages[::-1]:
-        mess = {'user':session['username'], 'message': m.content}
-        emit('chat', mess, room=data['room'])
-        process_code(escape(m.content),room=data['room'])
+        mess = {'user':m.nick, 'message': m.content}
+        emit('chat', mess)
+        process_code(escape(m.content), data['room'], sendto=False)
     emit('backlog','end')
 
 

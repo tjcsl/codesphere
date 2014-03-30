@@ -1,4 +1,4 @@
-from project.models import ShortenedURL
+from ..models import ShortenedURL
 from flask import redirect
 
 def resolve(id):

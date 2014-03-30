@@ -1,4 +1,4 @@
-from project.views import (
+from ..views import (
         bugs, core, projects
 )
-from project import app
+from .. import app

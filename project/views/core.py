@@ -1,7 +1,7 @@
 from flask import render_template, flash, session, request, url_for, redirect
-from project.utils import ghobject
-from project.models import User
-from project.database import db_session
+from ..utils import ghobject
+from ..models import User
+from ..database import db_session
 from flask.ext import github
 #import json
 

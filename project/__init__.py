@@ -1,4 +1,3 @@
-<<<<<<< Updated upstream
 from flask import Flask, g, session
 import os
 from project.models import User

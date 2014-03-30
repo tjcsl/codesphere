@@ -30,18 +30,17 @@ def view_bug(user, project, id):
             for user in commentors_raw:
                 commentors[user.id] = user.username
             return render_template('bugs/view.html', bug_title=bug.title,
-                                   type=bug.bug_type, description=bug.description, submitter=user.username,
+                                   type=bug.bug_type, description=bug.description, submitter=submitter.username,
                                    status=bug.status, priority=bug.priority,
                                    comments=comments, commentors=commentors, can_change_status=access_level != 'JHON_DOE')
     else:
-        print request.form
         bug = db_session.query(Bug).join(Project).join(User).filter(Project.name == project, User.username == user, Bug.bug_id == id).first()
         if 'new-status' in request.form and request.form['new-status'] != "":
             bug.status = request.form['new-status']
         if 'comment' in request.form:
             commentor = db_session.query(User).filter(User.username == session['username']).first()
             comment = BugComment(bug.id, request.form['comment'], commentor.id)
-            db_session.add(comment);
+            db_session.add(comment)
         db_session.commit()
         return redirect(url_for("view_bug", user=user, project=project, id=id))
 

@@ -2,7 +2,7 @@
 {% set navbar = [
     (url_for('index'), 'home', 'Home', True),
     ('/login/', 'login', 'Log in', not session.user_id),
-    ('/logout/', 'logout', Log out', session.user_id),
+    ('/logout/', 'logout', 'Log out', session.user_id),
     (url_for('about'), 'about', 'About CodeSphere', True),
 ] -%}
 

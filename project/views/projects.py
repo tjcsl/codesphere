@@ -6,6 +6,7 @@ from flask import redirect, flash, render_template, url_for, session
 @login_required
 def list_projects(user):
     projects = db_session.query(Project, User).filter(User.username == user)
+    return redirect(url_for("get_userpage", user=user))
     return "WHAT ARE YOU DOING HERE GO AWAY! --fwilson, 2014"
     return render_template("projects/list.html", projects=projects)
 

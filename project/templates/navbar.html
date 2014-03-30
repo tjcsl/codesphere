@@ -2,7 +2,6 @@
 {% set navbar = [
 (url_for('index'), 'home', 'Home', True),
 ('/about/', 'about', 'About', True),
-('/shorten/', 'shorten', 'Shorten Project URL', True)
 ] -%}
 
 {% set this_page_id = this_page_id | default('home') %}

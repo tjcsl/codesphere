@@ -9,7 +9,6 @@
 	var socket = io.connect('http://' + document.domain + (location.port?(':' + location.port):'') + '/sock');
     socket.on('chat', function(msg) {
         console.log(msg);
-        msg = JSON.parse(msg);
         $('#chat').append('<b>'+msg['user']+'</b>: '+msg['message']+'</br>');
         $("#chat").scrollTop($("#chat")[0].scrollHeight);
     });

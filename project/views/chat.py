@@ -34,7 +34,7 @@ def chat_message(message):
     db_session.commit()
 
 def process_code(m,room, sendto=True):
-    file_regex = re.compile(r'(?:of|in) +([\w\d]*\.[\w\d]+)')
+    file_regex = re.compile(r'(?:of|in) +([\w\d/]*\.[\w\d/]+)')
     messages = db_session.query(Message).order_by(desc(Message.id)).limit(30).all()
     messages = [message.content for message in messages]
     f = None
@@ -59,19 +59,19 @@ def process_code(m,room, sendto=True):
     tree = ghobject.get("repos/%s/%s/git/trees/master" % (owner, repo), params={'recursive':'1'})
     fullpath = None
     for i in tree['tree']:
-        if i['path'].split('/')[-1] == f:
+        if i['path'].split('/')[-1] == f.split('/')[-1]:
             fullpath = i['path']
             break
     if not fullpath:
         return
-    contents = ghobject.get("repos/%s/%s/contents/%s" % (owner, repo, f))
+    contents = ghobject.get("repos/%s/%s/contents/%s" % (owner, repo, fullpath))
     if contents['type'] != 'file':
         return
     text = base64.b64decode(contents['content'])
     lines = text.split('\n')
     if '-' in line:
         small = int(line.split('-')[0])-1
-        big = int(line.split('-')[1])+1
+        big = int(line.split('-')[1])
         if big > len(lines)-1:
             big = len(lines)-1
         linerange = range(small,big)

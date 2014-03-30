@@ -37,6 +37,7 @@ def ghcallback(oauth_token):
 
 def logout():
 	session.pop('user_id', None)
+	session.pop('accesstoken', None)
 	return redirect('/')
 
 def temp_test():

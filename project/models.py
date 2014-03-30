@@ -87,9 +87,8 @@ class Message(Base):
     __tablename__ = 'messages'
     id = Column(Integer, primary_key=True)
     nick = Column(String(50), nullable=False)
-    email = Column(String(256), nullable=True)
-    content = Column(String(1000))
-    repo = Column(String(300), nullable=False)
+    content = Column(String(2048))
+    room = Column(String(300), nullable=False)
 #    code = Column(ForeignKey('code.id'), nullable=True)
 
 #class Code(Base):

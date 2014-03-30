@@ -18,6 +18,9 @@
     socket.on('join', function(msg) {
         $('#chat').append('<i>'+msg['user']+' has joined '+roomStr+'.<br>');
     });
+    socket.on('code', function(msg){
+        $('#chat').append('<code style="white-space: pre;">Line '+msg['number']+': '+msg['code']+'</code><br>');
+    });
     $('#t').on('keydown',function(e){
         if (!e) { var e = window.event; }
         if (e.keyCode == 13) {

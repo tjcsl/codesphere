@@ -96,7 +96,7 @@ def on_join(data):
     room = data['room']
     join_room(room)
     messages = db_session.query(Message).order_by(desc(Message.id)).filter(Message.room==data['room']).limit(10).all()
-    emit('join', {'user':username})
+    emit('join', {'user':username}, broadcast=True)
     emit('backlog','start')
     for m in messages[::-1]:
         mess = {'user':m.nick, 'message': m.content}

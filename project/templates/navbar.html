@@ -31,6 +31,7 @@
                     {% if not session.user_id %}
                         <li><a href="/login/">Login</a></li>
                     {% else %}
+                        <li{% if 'userpage' == this_page_id %} class="active" {% endif %}><a href="/u/{{ session['username'] }}">{{ session['username'] }}</a></li>
                         <li><a href="/logout/">Logout</a></li>
                     {% endif %}
                 </ul>

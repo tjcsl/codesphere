@@ -33,12 +33,14 @@ def ghcallback(oauth_token):
 
     user.github_access_token = oauth_token
     session['user_id'] = user.id
+    session['username'] = user.username
     session['accesstoken'] = oauth_token
     db_session.commit()
     return redirect(next_url)
 
 def logout():
     session.pop('user_id', None)
+    session.pop('username', None)
     session.pop('accesstoken', None)
     return redirect('/')
 

@@ -7,16 +7,11 @@
 {% set this_page_id = this_page_id | default('home') %}
 
 {% block head %}
-    <style type="text/css">
-        body { padding-top: 60px; }
-    </style>
     {% block headadditions %}
     {% endblock %}
 {% endblock %}
 {% block body %}
-    <div class="container">
-        <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-            <div class="container-fluid">
+        <div class="navbar navbar-default" role="navigation">
                 <div class="navbar-header">
                     <a data-target=".nav-collapse" data-toggle="collapse" class="navbar-toggle btn btn-navbar">
                         <span class="icon-bar"></span>
@@ -44,7 +39,6 @@
                         {% endif %}
                     </ul>
                 </div>
-            </div>
         </div>
         <div class="container">
             <div id="alerts-container">
@@ -56,6 +50,5 @@
             {% block content %}
             {% endblock %}
         </div>
-    </div>
 {% endblock %}
 

@@ -2,6 +2,7 @@ from flask import render_template, request, session
 from ..models import Bug, Project, User
 from ..database import db_session
 from project.utils.auth import login_required
+#from project.utils.privs import get_user_priv
 
 def browse(user, project):
     bugs = db_session.query(Bug).join(Project).join(User).filter(User.username == user, Project.name == project)
@@ -13,6 +14,13 @@ def new(user, project):
         return render_template("bugs/new.html", user=user, project=project)
     else:
         return submit(user,project)
+
+def view_bug(user, project, id):
+    bug = db_session.query(Bug).join(Project).join(User).filter(Project.name == project, User.username == user, Bug.bug_id == id).first()
+    #access_level = get_user_priv(user, project, session['username'])
+    return render_template('bugs/view.html', bug_title=bug.title,
+                           type=bug.bug_type, description=bug.description,
+                           status=bug.status, priority=bug.priority)
 
 def submit(user, project):
     project_id = db_session.query(Project).join(User).filter(User.username == user, Project.name == project).first().id

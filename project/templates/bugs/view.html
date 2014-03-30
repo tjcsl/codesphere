@@ -1,0 +1,24 @@
+{% extends 'navbar.html' %}
+{% block content %}
+
+{% set prio_colors = {
+    "LOW":"#AADD00",
+    "MEDIUM":"#EEAD0E",
+    "HIGH":"#EE4000",
+    "CRITICAL":"#F00",
+}
+-%}
+
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        {{ bug_title }}
+        <span class="pull-right badge">{{ type }}</span>
+        <span class="pull-right badge">{{ status }}</span>
+        <span class="pull-right badge" style="background-color:{{ prio_colors[priority] }}">{{ priority }}</span>
+    </div>
+    <div class="panel-body">
+        {{ description }}
+    </div>
+</div>
+{% endblock %}

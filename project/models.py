@@ -36,6 +36,7 @@ class Bug(Base):
     bug_id = Column(Integer, nullable=False)
     project = Column(Integer, ForeignKey('projects.id'), nullable=False)
     submitter = Column(Integer, ForeignKey('users.id'), nullable=False)
+    status = Column(Enum('RESOLVED:NOTMYFAULT','RESOLVED:WONTFIX','RESOLVED:INVALID','RESOLVED:FIXED','ASSIGNED','NEW','UNCONFIRMED', name="resolved_type_enum"), nullable=False)
 
     __table_args__ = (UniqueConstraint('bug_id', 'project'),)
 

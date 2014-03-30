@@ -9,7 +9,7 @@ def get_user_priv(user_name, repo_name, to_get_user):
     if priv is None:
         req_string = 'repos/%s/%s/contributors' % (user_name, repo_name)
         contributors = project.utils.ghobject.get(req_string)
-        contributor_unames = [ i['login'] for i in contributors ]
+        contributor_unames = [i['login'] for i in contributors]
         project_id = db_session.query(Project).join(User).filter(User.username == user_name).filter(Project.name == repo_name).first().id
         user_id = db_session.query(User).filter(User.username == to_get_user).first().id
         if to_get_user in contributor_unames:

@@ -7,22 +7,30 @@
             <div class="panel-heading">
                 My Imported Repos
             </div>
-            <div class="panel-content">
-                {% for repo in repos %}
-                    <div>
-                    </div>
+            <ul>
+                {% for i in irepos %}
+                <li><a href="/{{ user }}/{{ i[0].name }}">{{ i[0].name }}</a></li>
                 {% endfor %}
-            </div>
+            </ul>
         </div>
     </div>
     <div class="col-md-6">
-        <p> fdsa D= </p>
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                Unimported Repos
+            </div>
+            <ul>
+                <!-- {% for i in urepos %}
+                <li><a href="//github.com/{{ user }}/{{ i }}">{{ i }}</a></li>
+                {% endfor %} -->
+            </ul>
+        </div>
     </div>
 </div>
 
 <div class="row">
     <div>
-        This is the center.
+        <!-- This is the center. -->
     </div>
 </div>
 

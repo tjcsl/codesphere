@@ -44,10 +44,15 @@
     socket.on('code', function(msg){
         $('#chat').append('<code style="white-space: pre;">Line '+msg['number']+': '+msg['code']+'</code><br>');
     });
+    socket.on('backlog', function(msg){
+        if (msg=='start') $('#chat').append('<i>*** Playing up to 10 Lines of Backlog ***</i><br>');
+        if (msg=='end')   $('#chat').append('<i>*** Backlog Complete ***</i><br>')
+    });
     $('#t').on('keydown',function(e){
         if (!e) { var e = window.event; }
         if (e.keyCode == 13) {
             socket.emit('chat',{'room':roomStr, 'message':$('#t').val()});
+            e.preventDefault();
             $('#t').val('');
             $('#t').focus();
         }

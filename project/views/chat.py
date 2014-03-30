@@ -93,7 +93,16 @@ def on_join(data):
     username = session['username']
     room = data['room']
     join_room(room)
+    messages = db_session.query(Message).order_by(desc(Message.id)).limit(10).all()
     emit('join', {'user':username})
+    emit('backlog','start')
+    for m in messages[::-1]:
+        mess = {'user':session['username'], 'message': m.content}
+        emit('chat', mess, room=data['room'])
+        process_code(escape(m.content),room=data['room'])
+    emit('backlog','end')
+
+
 
 @login_required
 def chat(user, project):

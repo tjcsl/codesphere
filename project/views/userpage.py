@@ -9,4 +9,4 @@ def get_userpage(user):
     allprojectsraw = ghobject.get('user/repos')
     allprojects = [i['name'] for i in allprojectsraw]
     uprojects = [i for i in allprojects if i not in iprojects]
-    return render_template('userpage.html', irepos=iprojects, urepos=uprojects, len=len)
+    return render_template('userpage.html', user=user, irepos=iprojects, urepos=uprojects, len=len)

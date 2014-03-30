@@ -71,6 +71,18 @@ class User(Base):
         self.username = username
         self.github_access_token = github_access_token
 
+class UserPrivalege(Base):
+    __tablename__ = 'users_privs'
+    id = Column(Integer, primary_key=True)
+    project = Column(Integer, ForeignKey('projects.id'), nullable=False)
+    user_id = Column(Integer, ForeignKey('users.id'), nullable=False)
+    level = Column(Enum(['JHON_DOE','OWNER','CONTRIBUTER']), nullable=False)
+
+    def __init__ (self, project, user_id, level):
+        self.project = project
+        self.user_id = user_id
+        self.level = level
+
 class Message(Base):
     __tablename__ = 'messages'
     id = Column(Integer, primary_key=True)

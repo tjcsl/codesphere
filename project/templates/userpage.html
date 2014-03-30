@@ -4,17 +4,17 @@
 
 <div class="row">
     <div class="col-md-6">
-        <div class="panel panel-default">
+        <div class="panel panel-primary">
             <div class="panel-heading">
                 My Imported Repos
             </div>
             <div class="panel-content">
-                <ul>
+                <ul class="list-group">
                     {% if len(irepos) == 0 %}
                     <p>No imported repos!</p>
                     {% else %}
                     {% for i in irepos %}
-                    <li><a href="/{{ i[0] }}/{{ i[1] }}">{{ i[1] }}</a></li>
+                    <li class="list-group-item"><a href="/{{ user }}/{{ i[1] }}">{{ i }}</a></li>
                     {% endfor %}
                     {% endif %}
                 </ul>
@@ -22,20 +22,23 @@
         </div>
     </div>
     <div class="col-md-6">
-        <div class="panel panel-default">
+        <div class="panel panel-primary">
             <div class="panel-heading">
                 Unimported Repos
             </div>
             <div class="panel-content">
-                <ul>
-                    {% if len(urepos) == 0 %}
+                {% if len(urepos) == 0 %}
                     <p>No unimported repos!</p>
-                    {% else %}
-                    {% for i in urepos %}
-                    <li><a href="//github.com/{{ user }}/{{ i }}">{{ i }}</a></li>
-                    {% endfor %}
-                    {% endif %}
-                </ul>
+                {% else %}
+                    <ul class="list-group">
+                        {% for i in urepos %}
+                            <li class="list-group-item">
+                                <a href="//github.com/{{ user }}/{{ i }}">{{ i }}</a>
+                                <a class="pull-right" href="/{{ user }}/projects/{{ i }}/import">Import</a>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
             </div>
         </div>
     </div>

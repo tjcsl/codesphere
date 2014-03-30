@@ -1,4 +1,4 @@
 from project.views import (
-        bugs, core
+        bugs, core, projects
 )
 from project import app

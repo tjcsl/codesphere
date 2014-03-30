@@ -1,5 +1,6 @@
 from project import app
 from project.views import core, bugs, links
+>>>>>>> Stashed changes
 
 def add_url_routes(routes_tuple):
     for route, view_function in routes_tuple:
@@ -14,4 +15,6 @@ add_url_routes((
     ('/ghcallback/', core.ghcallback),
     ('/logout', core.logout),
     ('/test', core.temp_test)
+    ('/<user>/projects/', projects.list_projects),
+    ('/<user>/<project_name>/import/', projects.import_project)
 ))

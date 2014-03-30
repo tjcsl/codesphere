@@ -1,6 +1,6 @@
 from flask import render_template
-from project.models import Bug, Project, User
-from project.database import db_session
+from ..models import Bug, Project, User
+from ..database import db_session
 
 def browse(owner, project):
     bugs = db_session.query(Bug,Project,User).filter(User.username == owner, Project.name == project)

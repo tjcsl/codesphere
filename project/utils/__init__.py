@@ -1,4 +1,5 @@
 from project import app
+from project.utils import auth
 from flask.ext.github import GitHub
 from flask import g, session
 

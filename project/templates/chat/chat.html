@@ -1,6 +1,6 @@
 {% extends 'navbar.html' %}
 {% block content %}
-<div id="chat" style="height:80%; width:100%; overflow:auto;" class="well"></div>
+<div id="chat" style="height:70%; width:100%; overflow:auto;" class="well"></div>
 <input id="t" type="text" placeholder="Say something..." style="width:100%;" class="form-control" />
 <script src="http:////cdnjs.cloudflare.com/ajax/libs/socket.io/0.9.16/socket.io.min.js"></script>
 <script>
@@ -26,7 +26,8 @@
         if (e.keyCode == 13) {
             socket.emit('chat',{'room':roomStr, 'message':$('#t').val()});
             $('#t').val('');
-            $('#t').focus();
+            //$('#t').focus();
+            $("#chat").scrollTop($("#chat")[0].scrollHeight);
         }
     });
 </script>

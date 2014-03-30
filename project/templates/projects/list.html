@@ -1,8 +1,13 @@
 {% extends 'navbar.html' %}
 {% block content %}
-<ul class="list-group">
-    {% for i in projects %}
-        <li class="list-group-item">{{ i[0].name }}</li>
-    {% endfor %}
-</ul>
+<div class="panel panel-default">
+    <div class="panel-heading">Projects</div>
+    <div class="panel-body">
+        <ul class="list-group">
+            {% for i in projects %}
+                <li class="list-group-item"><a href="{{ i.name }}">{{ i.name }}</a></li>
+            {% endfor %}
+        </ul>
+    </div>
+</div>
 {% endblock %}

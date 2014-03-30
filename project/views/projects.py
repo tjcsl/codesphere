@@ -6,9 +6,7 @@ from ..utils import privs
 
 @login_required
 def list_projects(user):
-    projects = db_session.query(Project, User).filter(User.username == user)
-    return redirect(url_for("get_userpage", user=user))
-    return "WHAT ARE YOU DOING HERE GO AWAY! --fwilson, 2014"
+    projects = db_session.query(Project).join(User).filter(User.username == user)
     return render_template("projects/list.html", projects=projects)
 
 @login_required

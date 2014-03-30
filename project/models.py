@@ -48,6 +48,10 @@ class Bug(Base):
         self.bug_type = bug_type
         self.bug_id = bug_id
         self.submitter = submitter
+        if bug_type == "BUG":
+            self.status = 'UNCONFIRMED'
+        else:
+            self.status = 'NEW'
 
     def __repr__(self):
         return '<Bug title=%s priority=%s bug_type=%s desc=%s>' % (self.title, self.priority, self.bug_type, self.description)

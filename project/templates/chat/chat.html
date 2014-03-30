@@ -6,7 +6,7 @@
 <script src="http:////cdnjs.cloudflare.com/ajax/libs/socket.io/0.9.16/socket.io.min.js"></script>
 <script>
 
-	var socket = io.connect('http://' + document.domain + ':' + location.port + '/sock');
+	var socket = io.connect('http://' + document.domain + (location.port?(':' + location.port):'') + '/sock');
     socket.on('chat', function(msg) {
         console.log(msg);
         msg = JSON.parse(msg);

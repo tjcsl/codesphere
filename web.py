@@ -4,7 +4,6 @@ from os import environ
 app = project.app
 app.debug = True
 app.port = int(environ.get("PORT", 5000))
-app.threaded = True
 socketio = project.socketio
 
 import logging

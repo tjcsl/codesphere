@@ -1,0 +1,29 @@
+{% extends 'navbar.html' %}
+{% block content %}
+<div id="chat" style="height:80%; width:100%; overflow:auto; border-style:solid;">
+</div>
+<input id="t" type="text" placeholder="Say something..." style="width:100%;" />
+<script src="http:////cdnjs.cloudflare.com/ajax/libs/socket.io/0.9.16/socket.io.min.js"></script>
+<script>
+
+	var socket = io.connect('http://localhost:5000/sock');
+    socket.on('chat', function(msg) {
+        console.log(msg);
+        msg = JSON.parse(msg);
+        $('#chat').append('<b>'+msg['user']+'</b>: '+msg['message']+'</br>');
+        $("#chat").scrollTop($("#chat")[0].scrollHeight);
+    });
+    $('form#emit').submit(function(event) {
+        socket.emit('my event', {'data': $('#emit_data').val()});
+        return false;
+    });
+    $('#t').on('keydown',function(e){
+    	if (!e) { var e = window.event; }
+    	if (e.keyCode == 13) {
+    		socket.emit('chat',{'message':$('#t').val()});
+    		$('#t').val('');
+    		$('#t').focus();
+    	}
+    });
+</script>
+{% endblock %}

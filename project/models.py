@@ -1,5 +1,6 @@
 from sqlalchemy import Column, Integer, String, Enum, ForeignKey
 from sqlalchemy.schema import UniqueConstraint
+from sqlalchemy.orm import relationship
 from project.database import Base
 
 class ShortenedURL(Base):
@@ -68,3 +69,23 @@ class User(Base):
         self.email = email
         self.username = username
         self.github_access_token = github_access_token
+
+class Message(Base):
+    __tablename__ = 'messages'
+    id = Column(Integer, primary_key=True)
+    nick = Column(String(50), nullable=False)
+    email = Column(String(256), nullable=False)
+    content = Column(String(1000))
+    repo = Column(String(300), nullable=False)
+    code = Column(ForeignKey('code.id'), nullable=True)
+
+class Code(Base):
+    __tablename__ = 'code'
+    id = Column(Integer, primary_key=True)
+    lines = relationship('codeline')
+
+class CodeLine(Base):
+    __tablename__ = 'codeline'
+    id = Column(Integer, primary_key=True)
+    number = Column(Integer, nullable=False)
+    codeparent = Column(Integer, ForeignKey('code.id'))

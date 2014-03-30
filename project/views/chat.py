@@ -31,7 +31,7 @@ def chat_message(message):
 #            emit('chat', m)
 
 
-def chat(owner, project):
+def chat(user, project):
 #    print(request.args.items())
 #    thread.start_new_thread(chat_stream, (request,))
     return render_template('chat/chat.html')

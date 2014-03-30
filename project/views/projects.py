@@ -9,8 +9,8 @@ def list_projects(user):
     return render_template("projects/list.html", projects=projects)
 
 @login_required
-def import_project(user, project_name):
-    db_session.add(Project(owner=db_session.query(User).filter(User.username == user)[0].id, name=project_name))
+def import_project(user, project):
+    db_session.add(Project(owner=db_session.query(User).filter(User.username == user)[0].id, name=project))
     db_session.commit()
     flash("Project added.", "success")
     return redirect(url_for("list_projects", user=user))

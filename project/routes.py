@@ -8,14 +8,14 @@ def add_url_routes(routes_tuple):
 add_url_routes((
     ('/', core.index),
     ('/about/', core.about),
-    ('/<owner>/<project>/bugs/', bugs.browse),
-    ('/link/<id>', links.resolve),
-    ('/login', core.login),
+    ('/link/<id>/', links.resolve),
+    ('/login/', core.login),
     ('/ghcallback/', core.ghcallback),
-    ('/logout', core.logout),
-    ('/test', core.temp_test),
-    ('/<user>/', userpage.get_userpage),
+    ('/logout/', core.logout),
+    ('/test/', core.temp_test),
+    ('/u/<user>/', userpage.get_userpage),
     ('/<user>/projects/', projects.list_projects),
-    ('/<user>/<project_name>/import/', projects.import_project),
-    ('/<owner>/<project>/chat/', chat.chat)
+    ('/<user>/porjects/<project>/bugs/', bugs.browse),
+    ('/<user>/projects/<project>/import/', projects.import_project),
+    ('/<user>/projects/<project>/chat/', chat.chat)
 ))

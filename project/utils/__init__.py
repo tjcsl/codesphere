@@ -28,4 +28,5 @@ def create_user(oauth_token):
         udata = ghobject.get('user', params={'access_token': oauth_token})
         user = User(email=udata.get('email',None), username=udata['login'], github_access_token=oauth_token)
         db_session.add(user)
+        db_session.commit()
     return user

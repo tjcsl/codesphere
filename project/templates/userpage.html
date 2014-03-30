@@ -14,7 +14,7 @@
                     <p>No imported repos!</p>
                     {% else %}
                     {% for i in irepos %}
-                    <li class="list-group-item"><a href="/{{ user }}/{{ i[1] }}">{{ i }}</a></li>
+                    <li class="list-group-item"><a href="/u/{{ user }}/{{ i[1] }}">{{ i }}</a></li>
                     {% endfor %}
                     {% endif %}
                 </ul>
@@ -34,7 +34,7 @@
                         {% for i in urepos %}
                             <li class="list-group-item">
                                 <a href="//github.com/{{ user }}/{{ i }}">{{ i }}</a>
-                                <a class="pull-right" href="/{{ user }}/projects/{{ i }}/import">Import</a>
+                                <a class="pull-right" href="/u/{{ user }}/projects/{{ i }}/import">Import</a>
                             </li>
                         {% endfor %}
                     </ul>

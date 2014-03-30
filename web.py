@@ -1,15 +1,15 @@
 import project
-from os import environ
+import logging
+from os import getenv
 
 app = project.app
 app.debug = True
-app.port = int(environ.get("PORT", 5000))
+port = int(getenv("PORT", 5000))
 socketio = project.socketio
 
-import logging
 from logging.handlers import RotatingFileHandler
 handler = RotatingFileHandler("bar.log", maxBytes=1000000)
 handler.setLevel(logging.DEBUG)
 app.logger.addHandler(handler)
 if __name__ == '__main__':
-    socketio.run(app)
+    socketio.run(app, port=port)

@@ -7,11 +7,17 @@
             <div class="panel-heading">
                 My Imported Repos
             </div>
-            <ul>
-                {% for i in irepos %}
-                <li><a href="/{{ user }}/{{ i[0].name }}">{{ i[0].name }}</a></li>
-                {% endfor %}
-            </ul>
+            <div class="panel-content">
+                <ul>
+                    {% if len(irepos) == 0 %}
+                    <p>No imported repos!</p>
+                    {% else %}
+                    {% for i in irepos %}
+                    <li><a href="/{{ i[0] }}/{{ i[1] }}">{{ i[1] }}</a></li>
+                    {% endfor %}
+                    {% endif %}
+                </ul>
+            </div>
         </div>
     </div>
     <div class="col-md-6">
@@ -19,19 +25,25 @@
             <div class="panel-heading">
                 Unimported Repos
             </div>
-            <ul>
-                <!-- {% for i in urepos %}
-                <li><a href="//github.com/{{ user }}/{{ i }}">{{ i }}</a></li>
-                {% endfor %} -->
-            </ul>
+            <div class="panel-content">
+                <ul>
+                    {% if len(urepos) == 0 %}
+                    <p>No unimported repos!</p>
+                    {% else %}
+                    {% for i in urepos %}
+                    <li><a href="//github.com/{{ user }}/{{ i }}">{{ i }}</a></li>
+                    {% endfor %}
+                    {% endif %}
+                </ul>
+            </div>
         </div>
     </div>
 </div>
 
 <div class="row">
-    <div>
+    <!-- <div>
         pls
-    </div>
+    </div> -->
 </div>
 
 {% endblock %}

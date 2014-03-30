@@ -1,5 +1,5 @@
 from flask import render_template, flash, session, request, url_for, redirect
-from ..utils import ghobject
+from ..utils import ghobject, create_user, create_organization
 from ..models import User
 from ..database import db_session
 from flask.ext import github
@@ -21,11 +21,15 @@ def ghcallback(oauth_token):
         flash("Authorization failed.")
         return redirect(next_url)
 
-    user = User.query.filter_by(github_access_token=oauth_token).first()
-    if user is None:
-        udata = ghobject.get('user', params={'access_token': oauth_token})
-        user = User(email=udata.get('email',None), username=udata['login'], github_access_token=oauth_token)
-        db_session.add(user)
+    # user = User.query.filter_by(github_access_token=oauth_token).first()
+    # if user is None:
+    #     udata = ghobject.get('user', params={'access_token': oauth_token})
+    #     user = User(email=udata.get('email',None), username=udata['login'], github_access_token=oauth_token)
+    #     db_session.add(user)
+    user = create_user(oauth_token)
+    user_orgs = ghobject.get('user/orgs', params={'access_token': oauth_token})
+    org_names = [i['login'] for i in user_orgs]
+    [create_organization(i) for i in org_names]
 
     user.github_access_token = oauth_token
     session['user_id'] = user.id

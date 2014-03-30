@@ -1,7 +1,7 @@
 from flask import render_template, request, session
 from ..models import Bug, Project, User
 from ..database import db_session
-from project.utils.auth import login_required
+from ..utils.auth import login_required
 #from project.utils.privs import get_user_priv
 
 def browse(user, project):

@@ -113,7 +113,7 @@ class WhiteboardNotes(Base):
     data = Column(String(32768), nullable=True)
     tasks = Column(String(32768), nullable=True)
 
-    def __init__(self, project, data="", tasks=""):
+    def __init__(self, project, data="", tasks="[]"):
         self.project = project
         self.data = data
         self.tasks = tasks

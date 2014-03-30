@@ -25,4 +25,6 @@ add_url_routes((
     ('/u/<user>/projects/<project>/whiteboard/edit/', whiteboard.edit_notes),
     ('/shorten', links.shortener),
     ('/p/<id>', links.resolve),
+    ('/tasks/<int:pid>/task/add/', whiteboard.add_task),
+    ('/tasks/<int:pid>/task/del/', whiteboard.del_task)
 ))

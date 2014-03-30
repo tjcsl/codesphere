@@ -77,6 +77,9 @@ def process_code(m,room):
             big = len(lines)-1
         linerange = range(small,big)
     else:
+        if int(line) > len(lines):
+            emit('code', {'number': 'Error', 'code': 'Line not found'})
+            return
         linerange = [int(line)-1]
     mag = len(str(max(linerange)))
     for l in linerange:

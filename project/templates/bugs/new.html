@@ -14,6 +14,10 @@ $( document.body ).on( 'click', '.dropdown-menu li', function( event ) {
     return false;
 
 });
+
+function submit_form() {
+    return $('#title').val() != "" && $('#description').val() != "" && $('#priority').val() != "" && $('#type').val() != "";
+}
 </script>
 
 <style>
@@ -30,7 +34,7 @@ textarea {
         New Bug
     </div>
     <div class="panel-body">
-        <form action="/u/{{ user }}/projects/{{ project }}/bugs/new/submit" method='POST'>
+        <form onsubmit="return submit_form()" method='POST'>
             <div class="input-group">
                 <label class="input-group-addon" for="title">Title</label>
                 <input class="form-control" type="text" id="title" name="title" placeholder="Enter short desciption"></input>
@@ -46,10 +50,10 @@ textarea {
                                 <span class="caret"></span>
                             </button>
                             <ul class="dropdown-menu" role="menu">
-                                <li><a href="#">Low</a></li>
-                                <li><a href="#">Medium</a></li>
-                                <li><a href="#">High</a></li>
-                                <li><a href="#">Critical</a></li>
+                                <li><a href="#" onclick="$('#priority').val('LOW')")>Low</a></li>
+                                <li><a href="#" onclick="$('#priority').val('MEDIUM')")>Medium</a></li>
+                                <li><a href="#" onclick="$('#priority').val('HIGH')")>High</a></li>
+                                <li><a href="#" onclick="$('#priority').val('CRITICAL')")>Critical</a></li>
                             </ul>
                         </div>
                     </div>
@@ -64,20 +68,22 @@ textarea {
                                 <span class="caret"></span>
                             </button>
                             <ul class="dropdown-menu" role="menu">
-                                <li><a href="#">Bug</a></li>
-                                <li><a href="#">Enhancement</a></li>
-                                <li><a href="#">Other</a></li>
+                                <li><a href="#" onclick="$('#type').val('BUG')")>Bug</a></li>
+                                <li><a href="#" onclick="$('#type').val('ENHANCEMENT')")>Enhancement</a></li>
+                                <li><a href="#" onclick="$('#type').val('OTHER')")>Other</a></li>
                             </ul>
                         </div>
                     </div>
                 </div>
             </div>
+            <input id="priority" name="priority" type="hidden" value="" />
+            <input id="type" name="type" type="hidden" value="" />
 
             <div class="panel panel-default">
                 <div class="panel-heading">Description</div>
                 <div class="panel-body">
                     <div class="input-group" style="height:100%; width:100%">
-                        <textarea name="description" class="form-control" style="resizeable:none;">
+                        <textarea id="description" name="description" class="form-control" style="resizeable:none;" value="">
                         </textarea>
                     </div>
                 </div>

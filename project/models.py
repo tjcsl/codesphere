@@ -35,14 +35,18 @@ class Bug(Base):
     bug_type = Column(Enum('BUG','ENHANCEMENT','OTHER', name="bug_type_enum"), nullable = False)
     bug_id = Column(Integer, nullable=False)
     project = Column(Integer, ForeignKey('projects.id'), nullable=False)
+    submitter = Column(Integer, ForeignKey('users.id'), nullable=False)
 
     __table_args__ = (UniqueConstraint('bug_id', 'project'),)
 
-    def __init__(self, title, description, priority, bug_type):
+    def __init__(self, project, title, description, priority, bug_type, bug_id, submitter):
+        self.project = project
         self.title = title
         self.description = description
         self.priority = priority
         self.bug_type = bug_type
+        self.bug_id = bug_id
+        self.submitter = submitter
 
     def __repr__(self):
         return '<Bug title=%s priority=%s bug_type=%s desc=%s>' % (self.title, self.priority, self.bug_type, self.description)

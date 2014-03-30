@@ -1,7 +1,11 @@
 {% extends 'navbar.html' %}
 {% block content %}
-    <div id="chat" style="height:80%; width:100%; overflow:auto; padding:20px;" class="well"></div>
-<input id="t" type="text" placeholder="Say something..." style="width:100%;" class="form-control" />
+<div class="row-fluid">
+    <div class="span10 offset1">
+        <div id="chat" style="height:80%; width:100%; overflow:auto;" class="well"></div>
+        <input id="t" type="text" placeholder="Say something..." style="width:100%;" class="form-control" />
+    </div>
+</div>
 <script src="http:////cdnjs.cloudflare.com/ajax/libs/socket.io/0.9.16/socket.io.min.js"></script>
 <script>
 

@@ -2,7 +2,7 @@ from flask import render_template, request, session, redirect, url_for, flash
 from ..models import Bug, Project, User, BugComment
 from ..database import db_session
 from ..utils.auth import login_required
-from project.utils.privs import get_user_priv
+from ..utils.privs import get_user_priv
 
 def browse(user, project):
     bugs = db_session.query(Bug).join(Project).join(User).filter(User.username == user, Project.name == project)

@@ -3,7 +3,7 @@ from project.views import core, bugs, links, projects, userpage, chat
 
 def add_url_routes(routes_tuple):
     for route, view_function in routes_tuple:
-        app.add_url_rule(route, view_function.__name__, view_function)
+        app.add_url_rule(route, view_function.__name__, view_function, methods=["GET", "POST"])
 
 add_url_routes((
     ('/', core.index),
@@ -18,5 +18,6 @@ add_url_routes((
     ('/u/<user>/projects/<project>/bugs/', bugs.browse),
     ('/u/<user>/projects/<project>/import/', projects.import_project),
     ('/u/<user>/projects/<project>/chat/', chat.chat),
-    ('/u/<user>/projects/<project>/get_priv_test/', projects.privtest)
+    ('/u/<user>/projects/<project>/get_priv_test/', projects.privtest),
+    ('/shorten', links.shortener)
 ))

@@ -2,8 +2,8 @@ import project
 from os import getenv
 
 app = project.app
-app.debug=True
-app.port=5000
+app.debug = True
+app.port = int(getenv("PORT", 5000))
 app.threaded = True
 socketio = project.socketio
 

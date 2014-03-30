@@ -1,8 +1,8 @@
 from flask import render_template, request, session, redirect, url_for, flash
-from ..models import Bug, Project, User
+from ..models import Bug, Project, User, BugComment
 from ..database import db_session
 from ..utils.auth import login_required
-#from project.utils.privs import get_user_priv
+from project.utils.privs import get_user_priv
 
 def browse(user, project):
     bugs = db_session.query(Bug).join(Project).join(User).filter(User.username == user, Project.name == project)
@@ -16,15 +16,34 @@ def new(user, project):
         return submit(user,project)
 
 def view_bug(user, project, id):
-    bug = db_session.query(Bug).join(Project).join(User).filter(Project.name == project, User.username == user, Bug.bug_id == id).first()
-    if bug is None:
-        flash('That bug doesn\'t exists!', 'danger')
-        return redirect('/')
+    if request.method == 'GET':
+        bug = db_session.query(Bug).join(Project).join(User).filter(Project.name == project, User.username == user, Bug.bug_id == id).first()
+        if bug is None:
+            flash('That bug doesn\'t exists!', 'danger')
+            return redirect('/')
+        else:
+            access_level = get_user_priv(user, project)
+            comments = db_session.query(BugComment).join(Bug).filter(Bug.bug_id == bug.bug_id, Bug.project == bug.project).all()
+            commentors_raw = db_session.query(User).join(BugComment).filter(Bug.bug_id == bug.bug_id, Bug.project == bug.project).all()
+            commentors = {}
+            submitter = db_session.query(User).join(Bug).filter(Bug.submitter == User.id).first()
+            for user in commentors_raw:
+                commentors[user.id] = user.username
+            return render_template('bugs/view.html', bug_title=bug.title,
+                                   type=bug.bug_type, description=bug.description, submitter=user.username,
+                                   status=bug.status, priority=bug.priority,
+                                   comments=comments, commentors=commentors, can_change_status=access_level != 'JHON_DOE')
     else:
-        #access_level = get_user_priv(user, project, session['username'])
-        return render_template('bugs/view.html', bug_title=bug.title,
-                               type=bug.bug_type, description=bug.description,
-                               status=bug.status, priority=bug.priority)
+        print request.form
+        bug = db_session.query(Bug).join(Project).join(User).filter(Project.name == project, User.username == user, Bug.bug_id == id).first()
+        if 'new-status' in request.form and request.form['new-status'] != "":
+            bug.status = request.form['new-status']
+        if 'comment' in request.form:
+            commentor = db_session.query(User).filter(User.username == session['username']).first()
+            comment = BugComment(bug.id, request.form['comment'], commentor.id)
+            db_session.add(comment);
+        db_session.commit()
+        return redirect(url_for("view_bug", user=user, project=project, id=id))
 
 def submit(user, project):
     project_id = db_session.query(Project).join(User).filter(User.username == user, Project.name == project).first().id

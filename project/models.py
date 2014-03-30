@@ -56,6 +56,18 @@ class Bug(Base):
     def __repr__(self):
         return '<Bug title=%s priority=%s bug_type=%s desc=%s>' % (self.title, self.priority, self.bug_type, self.description)
 
+class BugComment(Base):
+    __tablename__ = 'bug_comments'
+    id = Column(Integer, primary_key=True)
+    bug = Column(Integer, ForeignKey('bugs.id'), nullable=False)
+    commenter = Column(Integer, ForeignKey('users.id'), nullable=False)
+    content = Column(String(10000), nullable=False)
+
+    def __init__(self, bug, content, commenter):
+        self.bug = bug
+        self.content = content
+        self.commenter = commenter
+
 class Blocker(Base):
     __tablename__ = 'bug_dependancies'
     id = Column(Integer, primary_key=True)

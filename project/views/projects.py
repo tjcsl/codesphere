@@ -46,3 +46,4 @@ def display_project(user, project):
         else:
             break
     return render_template('projects/project.html', commits=commitlist, reponame=project)
+

@@ -1,4 +1,4 @@
-from flask import render_template, flash
+from flask import render_template, flash, session
 from ..utils import ghobject
 from ..database import db_session
 from ..models import Project, User
@@ -10,6 +10,6 @@ def get_userpage(user):
     iprojects = [i[0].name for i in iprojectsraw if i[0].owner == x]
     current_app.logger.debug(iprojectsraw)
     allprojectsraw = ghobject.get('user/repos')
-    allprojects = [i['name'] for i in allprojectsraw]
+    allprojects = [i['name'] for i in allprojectsraw if i['owner']['login'] == session['username']]
     uprojects = [i for i in allprojects if i not in iprojects]
     return render_template('userpage.html', user=user, irepos=iprojects, urepos=uprojects, len=len)

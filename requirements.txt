@@ -11,6 +11,7 @@ gevent-socketio==0.3.6
 gevent-websocket==0.9.3
 greenlet==0.4.2
 gunicorn==18.0
+gunicorn-websocket==0.0.3
 itsdangerous==0.24
 psycopg2==2.5.2
 redis==2.9.1

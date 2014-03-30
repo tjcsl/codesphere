@@ -1,10 +1,13 @@
 from project import app
 from flask.ext.github import GitHub
-from flask import g
+from flask import g, session
+
+app.secret_key = 'wigwiohowh23tj2pij'
+
 ghobject = GitHub(app)
 
 @ghobject.access_token_getter
 def tokenget():
-	user = g.user
-	if user is not None:
-		return user.github_access_token
+	if 'accesstoken' in session:
+		return session['accesstoken']
+	return None

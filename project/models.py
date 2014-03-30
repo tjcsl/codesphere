@@ -79,13 +79,13 @@ class Message(Base):
     repo = Column(String(300), nullable=False)
     code = Column(ForeignKey('code.id'), nullable=True)
 
-class Code(Base):
-    __tablename__ = 'code'
-    id = Column(Integer, primary_key=True)
-    lines = relationship('codeline')
-
-class CodeLine(Base):
-    __tablename__ = 'codeline'
-    id = Column(Integer, primary_key=True)
-    number = Column(Integer, nullable=False)
-    codeparent = Column(Integer, ForeignKey('code.id'))
+#class Code(Base):
+#    __tablename__ = 'code'
+#    id = Column(Integer, primary_key=True)
+#    lines = relationship('codeline')
+#
+#class CodeLine(Base):
+#    __tablename__ = 'codeline'
+#    id = Column(Integer, primary_key=True)
+#    number = Column(Integer, nullable=False)
+#    codeparent = Column(Integer, ForeignKey('code.id'))

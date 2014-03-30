@@ -4,7 +4,7 @@ import sys
 from os import getenv
 
 app = project.app
-app.debug = True
+app.debug = False
 port = int(getenv("PORT", 5000))
 socketio = project.socketio
 

@@ -27,7 +27,7 @@ def create_user(oauth_token):
     user = User.query.filter(User.username == udata['login']).first()
     if user is None:
         user = User(email=udata.get('email',None), username=udata['login'],
-                github_access_token=None)
+                    github_access_token=None)
         db_session.add(user)
         db_session.commit()
     return user

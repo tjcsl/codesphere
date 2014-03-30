@@ -15,7 +15,7 @@ add_url_routes((
     ('/test/', core.temp_test),
     ('/u/<user>/', userpage.get_userpage),
     ('/<user>/projects/', projects.list_projects),
-    ('/<user>/porjects/<project>/bugs/', bugs.browse),
+    ('/<user>/projects/<project>/bugs/', bugs.browse),
     ('/<user>/projects/<project>/import/', projects.import_project),
     ('/<user>/projects/<project>/chat/', chat.chat)
 ))

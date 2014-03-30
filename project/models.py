@@ -78,7 +78,7 @@ class Message(Base):
     email = Column(String(256), nullable=True)
     content = Column(String(1000))
     repo = Column(String(300), nullable=False)
-    code = Column(ForeignKey('code.id'), nullable=True)
+#    code = Column(ForeignKey('code.id'), nullable=True)
 
 #class Code(Base):
 #    __tablename__ = 'code'

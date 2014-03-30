@@ -1,0 +1,93 @@
+{% extends 'navbar.html' %}
+{% block content %}
+
+<script>
+$( document.body ).on( 'click', '.dropdown-menu li', function( event ) {
+
+    var $target = $( event.currentTarget );
+
+    $target.closest( '.btn-group' )
+        .find( '[data-bind="label"]' ).text( $target.text() )
+            .end()
+        .children( '.dropdown-toggle' ).dropdown( 'toggle' );
+
+    return false;
+
+});
+</script>
+
+<style>
+textarea {
+    width:100%;
+    height:100%;
+    columns:80;
+    height:20;
+}
+</style>
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        New Bug
+    </div>
+    <div class="panel-body">
+        <form action="/u/{{ user }}/projects/{{ project }}/bugs/new/submit" method='POST'>
+            <div class="input-group">
+                <label class="input-group-addon" for="title">Title</label>
+                <input class="form-control" type="text" id="title" name="title" placeholder="Enter short desciption"></input>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="input-group" style="border:none;">
+                        <div class="input-group-addon">Priority</div>
+                        <div class="btn-group btn-input clearfix" style="width:100%;">
+                            <button type="button" class="btn btn-default dropdown-toggle form-control" data-toggle="dropdown">
+                                <span data-bind="label">Select Priority</span>
+                                <span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu" role="menu">
+                                <li><a href="#">Low</a></li>
+                                <li><a href="#">Medium</a></li>
+                                <li><a href="#">High</a></li>
+                                <li><a href="#">Critical</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <div class="input-group">
+                        <div class="input-group-addon">Bug Type</div>
+                        <div class="btn-group btn-input clearfix" style="width:100%">
+                            <button type="button" class="btn btn-default dropdown-toggle form-control" data-toggle="dropdown">
+                                <span data-bind="label">Select Bug Type</span>
+                                <span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu" role="menu">
+                                <li><a href="#">Bug</a></li>
+                                <li><a href="#">Enhancement</a></li>
+                                <li><a href="#">Other</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="panel panel-default">
+                <div class="panel-heading">Description</div>
+                <div class="panel-body">
+                    <div class="input-group" style="height:100%; width:100%">
+                        <textarea name="description" class="form-control" style="resizeable:none;">
+                        </textarea>
+                    </div>
+                </div>
+            </div>
+
+            <div class="input-group">
+                <button>Submit</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+{% endblock %}

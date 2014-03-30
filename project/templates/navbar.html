@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% set navbar = [
-    (url_for('index'), 'home', 'Home', True),
-    ('/about/', 'about', 'About', True)
+(url_for('index'), 'home', 'Home', True),
+('/about/', 'about', 'About', True)
 ] -%}
 
 {% set this_page_id = this_page_id | default('home') %}
@@ -17,24 +17,31 @@
     <div class="container">
         <div class="navbar navbar-inverse navbar-fixed-top">
             <div class="container">
-                <a class="navbar-brand" href="/">CodeSphere</a>
-                <ul class="nav navbar-nav">
-                    {% for path, page_id, display_text, display_condition in navbar %}
-                        {% if display_condition %}
-                            <li{% if page_id == this_page_id %} class="active"{% endif %}>
-                                <a href="{{ path }}">{{ display_text }}</a>
-                            </li>
+                <a data-target=".nav-collapse" data-toggle="collapse" class="btn btn-navbar">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </a>
+                <div class="nav-collapse">
+                    <a class="navbar-brand" href="/">CodeSphere</a>
+                    <ul class="nav navbar-nav">
+                        {% for path, page_id, display_text, display_condition in navbar %}
+                            {% if display_condition %}
+                                <li{% if page_id == this_page_id %} class="active"{% endif %}>
+                                    <a href="{{ path }}">{{ display_text }}</a>
+                                </li>
+                            {% endif %}
+                        {% endfor %}
+                    </ul>
+                    <ul class="nav navbar-nav pull-right">
+                        {% if not session.user_id %}
+                            <li><a href="/login/">Login</a></li>
+                        {% else %}
+                            <li{% if 'userpage' == this_page_id %} class="active" {% endif %}><a href="/u/{{ session['username'] }}">{{ session['username'] }}</a></li>
+                            <li><a href="/logout/">Logout</a></li>
                         {% endif %}
-                    {% endfor %}
-                </ul>
-                <ul class="nav navbar-nav pull-right">
-                    {% if not session.user_id %}
-                        <li><a href="/login/">Login</a></li>
-                    {% else %}
-                        <li{% if 'userpage' == this_page_id %} class="active" {% endif %}><a href="/u/{{ session['username'] }}">{{ session['username'] }}</a></li>
-                        <li><a href="/logout/">Logout</a></li>
-                    {% endif %}
-                </ul>
+                    </ul>
+                </div>
             </div>
         </div>
         <div class="container">

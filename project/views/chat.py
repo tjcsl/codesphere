@@ -3,7 +3,7 @@ from flask.ext.socketio import SocketIO, emit, join_room, leave_room
 import redis
 import os
 import urlparse
-import redis
+#import redis
 import json
 import thread
 
@@ -18,7 +18,7 @@ from project import socketio
 def chat_message(message):
     m = {'user':session['user_name'], 'message': message['message']}
     emit('chat', json.dumps(m), broadcast=True)
-    
+
 
 #def chat_stream(req):
 #    print(req)
@@ -35,4 +35,3 @@ def chat(owner, project):
 #    print(request.args.items())
 #    thread.start_new_thread(chat_stream, (request,))
     return render_template('chat/chat.html')
-

@@ -9,6 +9,6 @@ ghobject = GitHub(app)
 
 @ghobject.access_token_getter
 def tokenget():
-	if 'accesstoken' in session:
-		return session['accesstoken']
-	return None
+    if 'accesstoken' in session:
+        return session['accesstoken']
+    return None

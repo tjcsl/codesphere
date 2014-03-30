@@ -1,5 +1,5 @@
 from project import app
-from project.views import core, bugs, links, projects, chat
+from project.views import core, bugs, links, projects, userpage, chat
 
 def add_url_routes(routes_tuple):
     for route, view_function in routes_tuple:
@@ -14,6 +14,7 @@ add_url_routes((
     ('/ghcallback/', core.ghcallback),
     ('/logout', core.logout),
     ('/test', core.temp_test),
+    ('/<user>/', userpage.get_userpage),
     ('/<user>/projects/', projects.list_projects),
     ('/<user>/<project_name>/import/', projects.import_project),
     ('/<owner>/<project>/chat/', chat.chat)

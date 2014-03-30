@@ -16,29 +16,27 @@ def login():
 
 @ghobject.authorized_handler
 def ghcallback(oauth_token):
-	print oauth_token
-	next_url = request.args.get('next') or url_for('index')
-	if oauth_token is None:
-		flash("Authorization failed.")
-		return redirect(next_url)
+    next_url = request.args.get('next') or url_for('index')
+    if oauth_token is None:
+        flash("Authorization failed.")
+        return redirect(next_url)
 
-	user = User.query.filter_by(github_access_token=oauth_token).first()
-	if user is None:
-		udata = ghobject.get('user', params={'access_token': oauth_token})
-		print str(udata)
-		user = User(email=udata['email'], username=udata['login'], github_access_token=oauth_token)
-		db_session.add(user)
+    user = User.query.filter_by(github_access_token=oauth_token).first()
+    if user is None:
+        udata = ghobject.get('user', params={'access_token': oauth_token})
+        user = User(email=udata['email'], username=udata['login'], github_access_token=oauth_token)
+        db_session.add(user)
 
-	user.github_access_token = oauth_token
-	session['user_id'] = user.id
-	session['accesstoken'] = oauth_token
-	db_session.commit()
-	return redirect(next_url)
+    user.github_access_token = oauth_token
+    session['user_id'] = user.id
+    session['accesstoken'] = oauth_token
+    db_session.commit()
+    return redirect(next_url)
 
 def logout():
-	session.pop('user_id', None)
-	session.pop('accesstoken', None)
-	return redirect('/')
+    session.pop('user_id', None)
+    session.pop('accesstoken', None)
+    return redirect('/')
 
 def temp_test():
-	return str(ghobject.get('orgs/tjcsl/repos'))
+    return str(ghobject.get('orgs/tjcsl/repos'))

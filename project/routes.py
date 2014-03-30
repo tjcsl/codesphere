@@ -14,8 +14,8 @@ add_url_routes((
     ('/logout/', core.logout),
     ('/test/', core.temp_test),
     ('/u/<user>/', userpage.get_userpage),
-    ('/<user>/projects/', projects.list_projects),
-    ('/<user>/projects/<project>/bugs/', bugs.browse),
-    ('/<user>/projects/<project>/import/', projects.import_project),
-    ('/<user>/projects/<project>/chat/', chat.chat)
+    ('/u/<user>/projects/', projects.list_projects),
+    ('/u/<user>/projects/<project>/bugs/', bugs.browse),
+    ('/u/<user>/projects/<project>/import/', projects.import_project),
+    ('/u/<user>/projects/<project>/chat/', chat.chat)
 ))

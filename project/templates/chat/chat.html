@@ -6,23 +6,26 @@
 <script src="http:////cdnjs.cloudflare.com/ajax/libs/socket.io/0.9.16/socket.io.min.js"></script>
 <script>
 
-	var socket = io.connect('http://' + document.domain + (location.port?(':' + location.port):'') + '/sock');
+    var socket = io.connect('http://' + document.domain + (location.port?(':' + location.port):'') + '/sock');
+    var room = window.location.pathname;
+    var roomRegex = /\/u\/([^ \/]*)\/projects\/([^ \/]*)\/chat\//g;
+    var match = roomRegex.exec(room);
+    var roomStr = match[1] + '/' + match[2];
+    socket.emit('join',{'room':roomStr});
     socket.on('chat', function(msg) {
-        console.log(msg);
-        $('#chat').append('<b>'+msg['user']+'</b>: '+msg['message']+'</br>');
+        $('#chat').append('<b>'+msg['user']+'</b>: '+msg['message']+'<br>');
         $("#chat").scrollTop($("#chat")[0].scrollHeight);
     });
-    $('form#emit').submit(function(event) {
-        socket.emit('my event', {'data': $('#emit_data').val()});
-        return false;
+    socket.on('join', function(msg) {
+        $('#chat').append('<i>'+msg['user']+' has joined '+roomStr+'.<br>');
     });
     $('#t').on('keydown',function(e){
-    	if (!e) { var e = window.event; }
-    	if (e.keyCode == 13) {
-    		socket.emit('chat',{'message':$('#t').val()});
-    		$('#t').val('');
-    		$('#t').focus();
-    	}
+        if (!e) { var e = window.event; }
+        if (e.keyCode == 13) {
+            socket.emit('chat',{'room':roomStr, 'message':$('#t').val()});
+            $('#t').val('');
+            $('#t').focus();
+        }
     });
 </script>
 {% endblock %}

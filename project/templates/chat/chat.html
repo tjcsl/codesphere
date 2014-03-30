@@ -1,5 +1,27 @@
 {% extends 'navbar.html' %}
 {% block content %}
+<style>
+#chat
+{
+    width:100%;
+    overflow:auto;
+}
+/* Large desktop */
+  @media (min-width: 1200px), @media (min-width: 768px), @media (max-width: 979px) { 
+  height:80%;
+}
+
+  /* Landscape phone to portrait tablet */
+  @media (max-width: 767px) { 
+  height:70%;
+   }
+
+  /* Landscape phones and down */
+  @media (max-width: 480px) {
+  height:60%;
+   }
+</style>
+
 <div id="chat" style="height:70%; width:100%; overflow:auto;" class="well"></div>
 <input id="t" type="text" placeholder="Say something..." style="width:100%;" class="form-control" />
 <script src="http:////cdnjs.cloudflare.com/ajax/libs/socket.io/0.9.16/socket.io.min.js"></script>
@@ -26,8 +48,7 @@
         if (e.keyCode == 13) {
             socket.emit('chat',{'room':roomStr, 'message':$('#t').val()});
             $('#t').val('');
-            //$('#t').focus();
-            $("#chat").scrollTop($("#chat")[0].scrollHeight);
+            $('#t').focus();
         }
     });
 </script>

@@ -2,7 +2,7 @@ from ..utils.auth import login_required
 from ..database import db_session
 from ..models import Project, User
 from flask import redirect, flash, render_template, url_for, session
-from ..utils import privs
+from ..utils import privs, ghobject
 
 @login_required
 def list_projects(user):
@@ -22,3 +22,27 @@ def import_project(user, project):
 @login_required
 def privtest(user, project):
     return str(privs.get_user_priv(user, project))
+
+def display_project(user, project):
+    uidraw = db_session.query(User).filter(User.username == user).first()
+    if uidraw is None:
+        flash('Nonexistent user!', 'danger')
+        return redirect('/')
+    uid = uidraw.id
+    project_fromdb = db_session.query(Project).filter(Project.owner == uid and Project.name == project).first()
+    if project_fromdb is None:
+        flash('Nonexistent project!', 'danger')
+        return redirect('/')
+    repoinfo = ghobject.get('repos/%s/%s' % (user, project))
+    branchinfo = ghobject.get('repos/%s/%s/branches/%s' % (user, project, repoinfo['default_branch']))
+    commitlist = []
+    if 'commit' in branchinfo:
+        commitlist.append((branchinfo['commit']['sha'], branchinfo['commit']['commit']['author']['name'], branchinfo['commit']['commit']['author']['date'], branchinfo['commit']['commit']['message']))
+    for i in range(4):
+        oldcommit = ghobject.get('repos/%s/%s/git/commits/%s' % (user, project, commitlist[i][0]))
+        if 'parents' in oldcommit and len(oldcommit['parents']) > 0:
+            newcommit = ghobject.get('repos/%s/%s/git/commits/%s' % (user, project, oldcommit['parents'][0]['sha']))
+            commitlist.append((newcommit['sha'], newcommit['author']['name'], newcommit['author']['date'], newcommit['message']))
+        else:
+            break
+    return render_template('projects/project.html', commits=commitlist, reponame=project)

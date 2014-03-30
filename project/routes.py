@@ -18,4 +18,5 @@ add_url_routes((
     ('/u/<user>/projects/<project>/bugs/', bugs.browse),
     ('/u/<user>/projects/<project>/import/', projects.import_project),
     ('/u/<user>/projects/<project>/chat/', chat.chat),
+    ('/u/<user>/projects/<project>/get_priv_test/', projects.privtest)
 ))

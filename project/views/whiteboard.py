@@ -16,9 +16,10 @@ def view_notes(user, project):
 
 def edit_notes(user, project):
     the_other = db_session.query(User).filter(User.username == user).first().id
-    that_thing = db_session.query(Project).filter(Project.owner == the_other, Project.name == project).first()
-    that_thing.data = request.form["data"]
-    that_thing.tasks = request.form["tasks"]
+    that_thing = db_session.query(Project).filter(Project.owner == the_other, Project.name == project).first().id
+    potato = db_session.query(WhiteboardNotes).filter(WhiteboardNotes.project == that_thing).first()
+    potato.data = request.form["data"]
+    potato.tasks = request.form["tasks"]
     db_session.commit()
     flash("Notes updated", "success")
     return redirect(url_for("view_notes", user=user, project=project))

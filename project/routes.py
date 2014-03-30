@@ -21,5 +21,5 @@ add_url_routes((
     ('/u/<user>/projects/<project>/get_priv_test/', projects.privtest),
     ('/u/<user>/projects/<project>/whiteboard/view/', whiteboard.view_notes),
     ('/u/<user>/projects/<project>/whiteboard/edit/', whiteboard.edit_notes),
-    ('/shorten', links.shortener),
+#    ('/shorten', links.shortener),
 ))

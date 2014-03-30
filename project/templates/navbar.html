@@ -11,16 +11,17 @@
     {% endblock %}
 {% endblock %}
 {% block body %}
-        <div class="navbar navbar-default" role="navigation">
+        <div class="navbar navbar-inverse" role="navigation" style="z-index:1000;">
+            <div class="container">
                 <div class="navbar-header">
-                    <a data-target=".nav-collapse" data-toggle="collapse" class="navbar-toggle btn btn-navbar">
+                    <a data-target="#navcollapse" data-toggle="collapse" class="navbar-toggle btn btn-navbar">
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </a>
                 </div>
                 <a class="navbar-brand" href="/">CodeSphere</a>
-                <div class="navbar-collapse collapse">
+                <div class="navbar-collapse collapse" id="navcollapse">
                     <ul class="nav navbar-nav">
                         {% for path, page_id, display_text, display_condition in navbar %}
                             {% if display_condition %}
@@ -39,6 +40,7 @@
                         {% endif %}
                     </ul>
                 </div>
+            </div>
         </div>
         <div class="container">
             <div id="alerts-container">

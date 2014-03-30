@@ -23,10 +23,11 @@ def create_organization(orgname):
         db_session.add(org)
 
 def create_user(oauth_token):
-    user = User.query.filter(User.github_access_token == oauth_token).first()
+    udata = ghobject.get('user', params={'access_token': oauth_token})
+    user = User.query.filter(User.username == udata['login']).first()
     if user is None:
-        udata = ghobject.get('user', params={'access_token': oauth_token})
-        user = User(email=udata.get('email',None), username=udata['login'], github_access_token=oauth_token)
+        user = User(email=udata.get('email',None), username=udata['login'],
+                github_access_token=None)
         db_session.add(user)
         db_session.commit()
     return user

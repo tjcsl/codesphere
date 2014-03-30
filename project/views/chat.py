@@ -6,6 +6,7 @@ import urlparse
 #import redis
 import json
 import thread
+import logging
 
 from project import app
 from project import socketio
@@ -16,8 +17,9 @@ from project import socketio
 
 @socketio.on('chat', namespace='/sock')
 def chat_message(message):
-    m = {'user':session['user_name'], 'message': message['message']}
-    emit('chat', json.dumps(m), broadcast=True)
+    logging.debug("Got message: %s" % message)
+    m = {'user':session['user_id'], 'message': message['message']}
+    emit('chat', m, broadcast=True)
 
 
 #def chat_stream(req):

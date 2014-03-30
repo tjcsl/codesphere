@@ -41,6 +41,8 @@ def ghcallback(oauth_token):
     session['username'] = user.username
     session['accesstoken'] = oauth_token
     db_session.commit()
+    if next_url == url_for('index'):
+        next_url = '/u/%s/' % user.username
     return redirect(next_url)
 
 def logout():

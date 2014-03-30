@@ -23,4 +23,4 @@ def import_project(user, project):
 
 @login_required
 def privtest(user, project):
-    return str(privs.get_user_priv(user, project, session['username']))
+    return str(privs.get_user_priv(user, project))

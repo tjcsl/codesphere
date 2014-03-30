@@ -93,7 +93,7 @@ def on_join(data):
     username = session['username']
     room = data['room']
     join_room(room)
-    messages = db_session.query(Message).order_by(desc(Message.id)).limit(10).all()
+    messages = db_session.query(Message).order_by(desc(Message.id)).filter(Message.room==data['room']).limit(10).all()
     emit('join', {'user':username})
     emit('backlog','start')
     for m in messages[::-1]:

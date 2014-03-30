@@ -47,7 +47,7 @@ def process_code(m,room):
     if match:
         f = match[0]
     if not f:
-        return # Don't continue if a file is not found
+        return  # Don't continue if a file is not found
     line = None
     line_regex = re.compile(r'(?:lines? +|#)(\d+(?:-\d+)?)')
     match = line_regex.findall(m)

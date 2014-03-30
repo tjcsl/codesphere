@@ -12,4 +12,4 @@ handler = RotatingFileHandler("bar.log", maxBytes=1000000)
 handler.setLevel(logging.DEBUG)
 app.logger.addHandler(handler)
 if __name__ == '__main__':
-    socketio.run(app, port=port)
+    socketio.run(app, port=port, host='0.0.0.0')

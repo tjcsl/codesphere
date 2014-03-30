@@ -8,8 +8,7 @@ import json
 import thread
 import logging
 
-from project import app
-from project import socketio
+from .. import app, socketio
 
 #url = urlparse.urlparse(os.environ.get('REDISCLOUD_URL'))
 #r = redis.Redis(host=url.hostname, port=url.port, password=url.password)

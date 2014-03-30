@@ -1,9 +1,7 @@
 {% extends 'base.html' %}
 {% set navbar = [
     (url_for('index'), 'home', 'Home', True),
-    ('/login/', 'login', 'Log in', not session.user_id),
-    ('/logout/', 'logout', 'Log out', session.user_id),
-    (url_for('about'), 'about', 'About CodeSphere', True),
+    ('/about/', 'about', 'About', True)
 ] -%}
 
 {% set this_page_id = this_page_id | default('home') %}
@@ -28,6 +26,13 @@
                             </li>
                         {% endif %}
                     {% endfor %}
+                </ul>
+                <ul class="nav navbar-nav pull-right">
+                    {% if not session.user_id %}
+                        <li><a href="/login/">Login</a></li>
+                    {% else %}
+                        <li><a href="/logout/">Logout</a></li>
+                    {% endif %}
                 </ul>
             </div>
         </div>

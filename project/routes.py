@@ -1,5 +1,5 @@
 from project import app
-from project.views import core, bugs, links, projects
+from project.views import core, bugs, links, projects, chat
 
 def add_url_routes(routes_tuple):
     for route, view_function in routes_tuple:
@@ -15,6 +15,6 @@ add_url_routes((
     ('/logout', core.logout),
     ('/test', core.temp_test),
     ('/<user>/projects/', projects.list_projects),
-    ('/<user>/<project_name>/import/', projects.import_project)
+    ('/<user>/<project_name>/import/', projects.import_project),
     ('/<owner>/<project>/chat/', chat.chat)
 ))

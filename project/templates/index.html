@@ -1,11 +1,37 @@
 {% extends 'navbar.html' %}
 {% block content %}
 
-<div class="row-fluid">
-    <div class="span10 offset1">
-        <div class="jumbotron">
-            <h1>Welcome to CodeSphere</h1>
+    <div class="row-fluid">
+        <div class="span10 offset1">
+            <div class="jumbotron">
+                <h1>Welcome to CodeSphere</h1>
+            </div>
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="panel panel-primary">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">{{ counts[0] }} project owners</h3>
+                        </div>
+                        <ul class="list-group" style="border-width:0px 0px 0px 0px">
+                            {% for i, v in e(things[0][:10]) %}
+                                <li class="list-group-item" style="border-width:0px; color:rgba(0,0,0,{{ 1-(i*0.1) }})">{{ v.username }}</li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="panel panel-primary">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">{{ counts[1] }} projects</h3>
+                        </div>
+                        <ul class="list-group" style="border-width:0px 0px 0px 0px;">
+                            {% for i, v in e(things[1][:10]) %}
+                                <li class="list-group-item" style="border-width:0px; color:rgba(0,0,0,{{ 1-(i*0.1) }})">{{ v.name }}</li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
-</div>
 {% endblock %}

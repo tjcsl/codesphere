@@ -1,12 +1,17 @@
 from flask import render_template, flash, session, request, url_for, redirect
 from ..utils import ghobject, create_user, create_organization
-from ..models import User
+from ..models import User, Project
+from sqlalchemy import desc
 from ..database import db_session
 from flask.ext import github
 #import json
 
 def index():
-    return render_template("index.html")
+    ucount = db_session.query(User).count()
+    rcount = db_session.query(Project).count()
+    u = db_session.query(User).order_by(User.id.desc()).all()
+    r = db_session.query(Project).order_by(Project.id.desc()).all()
+    return render_template("index.html", counts=(ucount, rcount), things=(u, r), e=enumerate)
 
 def about():
     return render_template("about.html")

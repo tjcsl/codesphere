@@ -61,12 +61,13 @@ class Blocker(Base):
 class User(Base):
     __tablename__ = 'users'
     id = Column(Integer, primary_key=True)
-    email = Column(String(256), nullable=False)
+    email = Column(String(256), nullable=True)
     username = Column(String(256), nullable=False)
     github_access_token = Column(String(256), nullable=False)
 
-    def __init__(self, email, username, github_access_token):
-        self.email = email
+    def __init__(self, email=None, username, github_access_token):
+        if email:
+            self.email = email
         self.username = username
         self.github_access_token = github_access_token
 
@@ -74,7 +75,7 @@ class Message(Base):
     __tablename__ = 'messages'
     id = Column(Integer, primary_key=True)
     nick = Column(String(50), nullable=False)
-    email = Column(String(256), nullable=False)
+    email = Column(String(256), nullable=True)
     content = Column(String(1000))
     repo = Column(String(300), nullable=False)
     code = Column(ForeignKey('code.id'), nullable=True)

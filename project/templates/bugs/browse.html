@@ -1,23 +1,26 @@
 {% extends 'navbar.html' %}
 {% block content %}
 <div class="panel panel-default">
-  <div class="panel-body">
-    <table class="table">
-      <tr>
-        <th>ID</th>
-        <th>Title</th>
-        <th>Priority</th>
-        <th>Type</th>
-      </tr>
-      {% for bug in bugs %}
-      <tr>
-        <td>{{ bug.id }}</td>
-        <td>{{ bug.title }}</td>
-        <td>{{ bug.priority }}</td>
-        <td>{{ bug.type }}</td>
-      </tr>
-      {% endfor %}
-    </table>
-  </div>
+    <div class="panel-heading">
+        Bugs
+    </div>
+    <div class="panel-body">
+        <table class="table">
+            <tr>
+                <th>ID</th>
+                <th>Title</th>
+                <th>Priority</th>
+                <th>Type</th>
+            </tr>
+            {% for bug in bugs %}
+            <tr>
+                <td><a href="./view/{{bug.bug_id}}">{{ bug.bug_id }}</a></td>
+                <td><a href="./view/{{bug.bug_id}}">{{ bug.title }}</a></td>
+                <td><a href="./view/{{bug.bug_id}}">{{ bug.priority }}</a></td>
+                <td><a href="./view/{{bug.bug_id}}">{{ bug.bug_type }}</a></td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
 </div>
 {% endblock %}

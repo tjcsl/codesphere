@@ -12,12 +12,15 @@ from cgi import escape
 from .. import app, socketio
 from ..utils.auth import login_required
 
-#url = urlparse.urlparse(os.environ.get('REDISCLOUD_URL'))
-#r = redis.Redis(host=url.hostname, port=url.port, password=url.password)
+url = urlparse.urlparse(os.environ.get('REDISCLOUD_URL'))
+r = redis.Redis(host=url.hostname, port=url.port, password=url.password)
 
 
 @socketio.on('chat', namespace='/sock')
 def chat_message(message):
+    thing = session['username'] if 'username' in session else 'none'
+    r.publish(message['room'], thing + ':' + message['message'])
+    r.publish("allmsgs", thing + ':' + message['message'])
     m = {'user':(session['username'] if 'username' in session else '<i>none</i>'), 'message': escape(message['message'])}
     emit('chat', m, room=message['room'])
 

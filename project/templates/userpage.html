@@ -15,7 +15,7 @@
                     {% else %}
                     {% for i in irepos %}
                     <li class="list-group-item">
-                        <a href="https://github.com/{{ user }}/{{ i }}">{{ i }}</a>
+                        <a href="/u/{{ user.username }}/projects/{{ i }}/">{{ i }}</a>
                         <a href="/u/{{ user.username }}/projects/{{ i }}/chat/">(Chat)</a>
                         <a href="/u/{{ user.username }}/projects/{{ i }}/whiteboard/view/">(Whiteboard)</a>
                         <a href="/u/{{ user.username }}/projects/{{ i }}/bugs/">(Bugs)</a>

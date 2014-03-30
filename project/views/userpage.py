@@ -8,7 +8,7 @@ def get_userpage(user):
     iprojectsraw = db_session.query(Project).join(User).filter(User.username == user).all()
     user = db_session.query(User).filter(User.username == user).first()
     if user is None:
-        flash('That user hasn\'t logged into our system','danger')
+        flash('That user hasn\'t logged into our system!','danger')
         return render_template('userpage_error.html')
     iprojects = [i.name for i in iprojectsraw if i.owner == user.id]
     allprojectsraw = ghobject.get('user/repos')

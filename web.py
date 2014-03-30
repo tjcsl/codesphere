@@ -1,5 +1,6 @@
 import project
 import logging
+import sys
 from os import getenv
 
 app = project.app
@@ -7,8 +8,7 @@ app.debug = True
 port = int(getenv("PORT", 5000))
 socketio = project.socketio
 
-from logging.handlers import RotatingFileHandler
-handler = RotatingFileHandler("bar.log", maxBytes=1000000)
+handler = logging.StreamHandler(sys.stdout)
 handler.setLevel(logging.DEBUG)
 app.logger.addHandler(handler)
 if __name__ == '__main__':

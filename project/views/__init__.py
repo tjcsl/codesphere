@@ -1,4 +1,4 @@
 from ..views import (
-        bugs, core, projects, chat
+        bugs, core, projects, chat, whiteboard
 )
 from .. import app

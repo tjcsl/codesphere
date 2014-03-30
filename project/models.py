@@ -102,3 +102,17 @@ class Message(Base):
 #    id = Column(Integer, primary_key=True)
 #    number = Column(Integer, nullable=False)
 #    codeparent = Column(Integer, ForeignKey('code.id'))
+
+class WhiteboardNotes(Base):
+    __tablename__ = 'whiteboard'
+    project = Column(Integer, primary_key=True)
+    data = Column(String(32768), nullable=True)
+    tasks = Column(String(32768), nullable=True)
+
+    def __init__(self, project, data="", tasks=""):
+        self.project = project
+        self.data = data
+        self.tasks = tasks
+
+    def __repr__(self):
+        return "<some stuff nobody cares about>"

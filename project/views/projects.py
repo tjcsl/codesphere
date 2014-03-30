@@ -2,7 +2,7 @@ from ..utils.auth import login_required
 from ..database import db_session
 from ..models import Project, User
 from flask import redirect, flash, render_template, url_for, session
-from project.utils import privs
+from ..utils import privs
 
 @login_required
 def list_projects(user):

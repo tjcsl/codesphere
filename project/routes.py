@@ -1,5 +1,5 @@
 from project import app
-from project.views import core, bugs, links, projects, userpage, chat
+from project.views import core, bugs, links, projects, userpage, chat, whiteboard
 
 def add_url_routes(routes_tuple):
     for route, view_function in routes_tuple:
@@ -18,5 +18,7 @@ add_url_routes((
     ('/u/<user>/projects/<project>/bugs/', bugs.browse),
     ('/u/<user>/projects/<project>/import/', projects.import_project),
     ('/u/<user>/projects/<project>/chat/', chat.chat),
-    ('/u/<user>/projects/<project>/get_priv_test/', projects.privtest)
+    ('/u/<user>/projects/<project>/get_priv_test/', projects.privtest),
+    ('/u/<user>/projects/<project>/whiteboard/view/', whiteboard.view_notes),
+    ('/u/<user>/projects/<project>/whiteboard/edit/', whiteboard.edit_notes),
 ))

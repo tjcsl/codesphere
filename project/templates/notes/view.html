@@ -1,0 +1,7 @@
+{% extends 'navbar.html' %}
+{% block content %}
+    <form action="{{ url_for('edit_notes', user=user, project=project) }}" method="POST">
+        <textarea name="data" class="form-control" style="width:100%;">{{ thing.data }}</textarea>
+        <input type="submit" class="btn btn-danger" value=Save>
+    </form>
+{% endblock %}

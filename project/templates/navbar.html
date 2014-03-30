@@ -38,6 +38,12 @@
             </div>
         </div>
         <div class="container">
+            <div id="alerts-container">
+                {% block alerts %}{% endblock %}
+                {% for cat, msg in get_flashed_messages(with_categories=True) %}
+                    <div class="alert alert-{{ cat }} alert-flashed">{{ msg|safe }}</div>
+                {% endfor %}
+            </div>
             {% block content %}
             {% endblock %}
         </div>

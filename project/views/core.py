@@ -50,6 +50,3 @@ def logout():
     session.pop('username', None)
     session.pop('accesstoken', None)
     return redirect('/')
-
-def temp_test():
-    return str(ghobject.get('orgs/tjcsl/repos'))

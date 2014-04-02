@@ -12,7 +12,6 @@ add_url_routes((
     ('/login/', core.login),
     ('/ghcallback/', core.ghcallback),
     ('/logout/', core.logout),
-    ('/test/', core.temp_test),
     ('/u/<user>/', userpage.get_userpage),
     ('/u/<user>/projects/', projects.list_projects),
     ('/u/<user>/projects/<project>/', projects.display_project),

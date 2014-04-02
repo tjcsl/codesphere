@@ -13,7 +13,7 @@ def view_notes(user, project):
         newwhiteboard = WhiteboardNotes(currproject)
         db_session.add(newwhiteboard)
         db_session.commit()
-    return render_template("notes/view.html", hueid=currproject, notes=json.loads(newwhiteboard.tasks), thing=newwhiteboard, user=user, project=project)
+    return render_template("notes/view.html", prid=currproject, notes=json.loads(newwhiteboard.tasks), wbcontents=newwhiteboard, user=user, project=project)
 
 def add_task(pid):
     currwhiteboard = db_session.query(WhiteboardNotes).filter(WhiteboardNotes.project == pid).first()
@@ -21,9 +21,9 @@ def add_task(pid):
     storedtasks.append(request.form["task"])
     currwhiteboard.tasks = json.dumps(storedtasks)
     db_session.commit()
-    stuff = db_session.query(Project).filter(Project.id == pid).first()
-    ownerpls = db_session.query(User).filter(User.id == stuff.owner).first()
-    return redirect(url_for('view_notes', user=ownerpls.username, project=stuff.name))
+    proj = db_session.query(Project).filter(Project.id == pid).first()
+    owner = db_session.query(User).filter(User.id == proj.owner).first()
+    return redirect(url_for('view_notes', user=owner.username, project=proj.name))
 
 def del_task(pid):
     currwhiteboard = db_session.query(WhiteboardNotes).filter(WhiteboardNotes.project == pid).first()
@@ -31,16 +31,16 @@ def del_task(pid):
     storedtasks = [i for i in storedtasks if i != request.form["task"]]
     currwhiteboard.tasks = json.dumps(storedtasks)
     db_session.commit()
-    stuff = db_session.query(Project).filter(Project.id == pid).first()
-    ownerpls = db_session.query(User).filter(User.id == stuff.owner).first()
-    return redirect(url_for('view_notes', user=ownerpls.username, project=stuff.name))
+    proj = db_session.query(Project).filter(Project.id == pid).first()
+    owner = db_session.query(User).filter(User.id == proj.owner).first()
+    return redirect(url_for('view_notes', user=owner.username, project=proj.name))
 
 
 def edit_notes(user, project):
-    the_other = db_session.query(User).filter(User.username == user).first().id
-    that_thing = db_session.query(Project).filter(Project.owner == the_other, Project.name == project).first().id
-    potato = db_session.query(WhiteboardNotes).filter(WhiteboardNotes.project == that_thing).first()
-    potato.data = request.form["data"]
+    curruser = db_session.query(User).filter(User.username == user).first().id
+    proj = db_session.query(Project).filter(Project.owner == curruser, Project.name == project).first().id
+    newnotes = db_session.query(WhiteboardNotes).filter(WhiteboardNotes.project == proj).first()
+    newnotes.data = request.form["data"]
     db_session.commit()
     flash("Notes updated", "success")
     return redirect(url_for("view_notes", user=user, project=project))

@@ -29,7 +29,7 @@ def display_project(user, project):
         flash('Nonexistent user!', 'danger')
         return redirect('/')
     uid = uidraw.id
-    project_fromdb = db_session.query(Project).filter(Project.owner == uid and Project.name == project).first()
+    project_fromdb = db_session.query(Project).filter(Project.owner == uid, Project.name == project).first()
     if project_fromdb is None:
         flash('Nonexistent project!', 'danger')
         return redirect('/')

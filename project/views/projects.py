@@ -37,7 +37,7 @@ def display_project(user, project):
     try:
         repoinfo = ghobject.get('repos/%s/%s' % (user, project))
     except GitHubError:
-        flash('Couldn\'t fetch from GitHub - is the project private, or has it been deleted?')
+        flash('Couldn\'t fetch from GitHub - is the project private, or has it been deleted?', 'danger')
         return redirect('/u/%s/' % (user))
     branchinfo = ghobject.get('repos/%s/%s/branches/%s' % (user, project, repoinfo['default_branch']))
     commitlist = []

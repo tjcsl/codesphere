@@ -2,6 +2,7 @@ from ..utils.auth import login_required
 from ..database import db_session
 from ..models import Project, User
 from flask import redirect, flash, render_template, url_for, session
+from flask.ext.github import GitHubError
 from ..utils import privs, ghobject
 
 @login_required

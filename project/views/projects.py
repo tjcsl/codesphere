@@ -33,7 +33,11 @@ def display_project(user, project):
     if project_fromdb is None:
         flash('Nonexistent project!', 'danger')
         return redirect('/')
-    repoinfo = ghobject.get('repos/%s/%s' % (user, project))
+    try:
+        repoinfo = ghobject.get('repos/%s/%s' % (user, project))
+    except GitHubError:
+        flash('Couldn\'t fetch from GitHub - is the project private, or has it been deleted?')
+        return redirect('/u/%s/' % (user))
     branchinfo = ghobject.get('repos/%s/%s/branches/%s' % (user, project, repoinfo['default_branch']))
     commitlist = []
     if 'commit' in branchinfo:
